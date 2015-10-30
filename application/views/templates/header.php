@@ -9,6 +9,7 @@
 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?php echo base_url('assets/app.css') ?>">
 
 
         <script>
@@ -31,11 +32,29 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12"><h3>Logo</h3></div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                    <a href="<?php echo base_url('welcome/c1') ?>" class="ajax-view">Content1</a> | 
-                    <a href="<?php echo base_url('welcome/c2') ?>" class="ajax-view">Content2</a> | 
-                    <a href="<?php echo base_url('welcome/c3') ?>" class="ajax-view">Content3</a>
+                    <a href="<?php echo base_url('welcome/c1') ?>" class="ajax-view" data-title="content1">Content1</a> | 
+                    <a href="<?php echo base_url('welcome/c2') ?>" class="ajax-view" data-title="content2">Content2</a> | 
+                    <a href="<?php echo base_url('welcome/c3') ?>" class="ajax-view" data-title="content3">Content3</a> |
+                    <a href="<?php echo base_url('welcome/form1') ?>" class="ajax-view" data-title="form1">Form1</a> 
+                    
                 </div>
             </div>
         </div>
         <hr/>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="success-block" class="alert alert-success alert-dismissible fade in <?php echo $this->session->flashdata('success_message') == "" ? "hidden" : "" ?>" role="alert">
+<!--                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                    </button>-->
+                    <span id="success-message">
+                        <?php if ($this->session->flashdata('success_message') != "") { ?>
+                            <?php echo $this->session->flashdata('success_message'); ?>
+                        <?php } ?>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
         <div id="my-content">

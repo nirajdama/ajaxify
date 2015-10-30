@@ -9,12 +9,12 @@ class View_lib {
         } else {
             $header_data['title'] = "CI";
         }
-
+        
         $CI->load->view('templates/header', $header_data);
         if ($data == null) {
             $CI->load->view($view);
         } else {
-            $CI->load->view($view, $main_data);
+            $CI->load->view($view, $data);
         }
         $CI->load->view('templates/footer');
     }

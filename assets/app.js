@@ -12,12 +12,44 @@ $(document).ready(function() {
     $(document).on("click", ".ajax-view", function(e) {
         e.preventDefault();
         console.log('ajax-view');
+        $('#success-block').addClass('hidden');
+        $('#success-message').html('');
         var load_div = '#my-content';
         var title = $(this).data('title');
         if (title == undefined) {
             title = "CI";
         }
         load_view(load_div, title, $(this).attr('href'));
+    });
+
+    $(document).on("submit", ".ajax-form", function(e) {
+        e.preventDefault();
+        this_form = $(this);
+        //show_miniloading(this_form);
+        this_form.find('.custom-error').html("");
+
+        $.ajax({
+            url: this_form.attr('action'),
+            data: this_form.serialize(),
+            type: "post",
+            dataType: "json",
+            success: function(res) {
+                //hide_miniloading(this_form);
+                if (res.error == true) {
+                    $.each(res.display_errors, function(error_id, html) {
+                        $('#' + error_id).html(html);
+                    });
+                } else {
+                    //s_title and s_text canbe used in pnotify
+                    //https://sciactive.github.io/pnotify/
+                    if (res.eval_script != undefined) {
+                        eval(res.eval_script);
+                    }
+                    $('#success-message').html(res.s_text);
+                    $('#success-block').removeClass('hidden');
+                }
+            }
+        });
     });
 });
 
@@ -35,8 +67,6 @@ function changeUrl(page, url) {
             var obj = {Page: page, Url: url};
             history.pushState(obj, obj.Page, obj.Url);
         }
-    } else {
-        console.log('nai hua');
     }
 }
 function cutBaseUrl(url) {
